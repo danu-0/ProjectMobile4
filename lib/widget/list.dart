@@ -15,7 +15,7 @@ class ListMenu extends StatelessWidget {
       height: 34,
       width: 106,
       decoration: BoxDecoration(
-          border: Border.all(color: primary, width: 2),
+          border: Border.all(color: secondary, width: 2),
           borderRadius: BorderRadius.circular(6)),
       child: Center(
         child: Text(

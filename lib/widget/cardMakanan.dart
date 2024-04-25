@@ -23,7 +23,7 @@ class MakananItem extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           color: white,
-          border: Border.all(color: primary, width: 2)),
+          border: Border.all(color: secondary, width: 2)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,7 +31,7 @@ class MakananItem extends StatelessWidget {
             height: 92,
             width: double.infinity,
             decoration:
-                BoxDecoration(border: Border.all(color: primary, width: 2)),
+                BoxDecoration(border: Border.all(color: secondary, width: 2)),
             child: ClipRRect(
               child: Image.asset(
                 gambar,
