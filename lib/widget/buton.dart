@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../theme/theme.dart';
 
 class buton extends StatelessWidget {
@@ -55,6 +56,7 @@ class butonS extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(image: AssetImage(image)),
+            Gap(10),
             Text(
               text,
               style: TextStyle(color: white, fontSize: 16, fontWeight: regular),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tester/page/home.dart';
 import '../theme/theme.dart';
 import '../widget/buton.dart';
 import '../widget/form.dart';
@@ -40,7 +41,7 @@ class _LoginState extends State<Login> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Login(),
+                            builder: (context) => Home(),
                           ));
                     },
                     text: 'Sign In'),
