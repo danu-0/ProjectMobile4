@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState(); // Perbaiki di sini
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {

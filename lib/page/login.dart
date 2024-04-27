@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tester/page/home.dart';
+import 'package:tester/widget/formP.dart';
 import '../theme/theme.dart';
 import '../widget/buton.dart';
 import '../widget/form.dart';
@@ -32,9 +33,9 @@ class _LoginState extends State<Login> {
               children: [
                 Image.asset('assets/textL.png'),
                 const Gap(60),
-                CustomForm(desk: 'Email', icon: Icons.email),
+                CustomForm(desk: 'Email', icon: Icons.email_outlined),
                 Gap(30),
-                CustomForm(desk: 'Password', icon: Icons.key),
+                CustomFormP(desk: 'Password', icon: Icons.vpn_key_outlined),
                 Gap(30),
                 buton(
                     onPressed: () {

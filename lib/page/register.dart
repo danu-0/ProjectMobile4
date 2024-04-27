@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:tester/widget/formP.dart';
 import '../page/login.dart';
 import '../theme/theme.dart';
 import '../widget/buton.dart';
@@ -19,7 +20,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
@@ -35,7 +36,7 @@ class _RegisterState extends State<Register> {
                 Gap(30),
                 CustomForm(desk: 'Email', icon: Icons.email_outlined),
                 Gap(30),
-                CustomForm(desk: 'Password', icon: Icons.vpn_key_outlined),
+                CustomFormP(desk: 'Password', icon: Icons.vpn_key_outlined),
                 Gap(30),
                 buton(
                     onPressed: () {
