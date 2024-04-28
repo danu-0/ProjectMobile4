@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tester/page/bottom.dart';
 import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/cardMakanan.dart';
 import 'package:tester/widget/list.dart';
 import 'package:get/get.dart';
+
+import '../widget/bottomNav.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +15,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var indexKategori = 0;
+  var currentIndex = 0;
+
+  void getKategori(int index) {
+    setState(() {
+      indexKategori = index;
+    });
+  }
+
   final List<Map<String, dynamic>> cardMakanan = [
     {
       'nama': 'Nasi Goreng',

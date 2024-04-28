@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tester/page/home.dart';
+import 'package:tester/page/library.dart';
+import 'package:tester/page/profile.dart';
+import 'package:tester/page/shop.dart';
 import 'package:tester/page/splash.dart';
 
 void main() {
@@ -12,23 +16,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: const MyHomePage(),
+      // home: SplashPage(),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => SplashPage(),
+        '/home': (context) => Home(),
+        '/shop': (context) => ShopPage(),
+        '/library': (context) => Library(),
+        '/profil': (context) => Profile(),
+      },
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return SplashPage();
   }
 }

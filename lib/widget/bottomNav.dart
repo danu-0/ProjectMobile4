@@ -21,6 +21,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
+              Navigator.pushNamed(context, '/home');
               onItemTapped(0);
             },
             icon: Obx(() => Icon(
@@ -31,6 +32,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              Navigator.pushNamed(context, '/library');
               onItemTapped(1);
             },
             icon: Obx(() => Icon(
@@ -41,6 +43,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              Navigator.pushNamed(context, '/shop');
               onItemTapped(2);
             },
             icon: Obx(() => Icon(
@@ -51,6 +54,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              Navigator.pushNamed(context, '/profil');
               onItemTapped(3);
             },
             icon: Obx(() => Icon(
