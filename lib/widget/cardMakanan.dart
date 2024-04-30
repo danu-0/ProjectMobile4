@@ -16,9 +16,9 @@ class MakananItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 112,
       height: 154,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       margin: EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
@@ -56,7 +56,7 @@ class MakananItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Harga: Rp ${harga}',
+                      'Rp ${harga}',
                       style: TextStyle(fontSize: 10, fontWeight: regular),
                     ),
                   ],
@@ -64,6 +64,7 @@ class MakananItem extends StatelessWidget {
                 Icon(
                   Icons.add_box_outlined,
                   color: primary,
+                  size: 15,
                 )
               ],
             ),
