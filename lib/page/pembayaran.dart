@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:tester/widget/buton.dart';
 import 'package:tester/widget/listFavorit.dart';
 
@@ -44,7 +45,11 @@ class NextPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.arrow_back_ios),
+                    GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios)),
                     Gap(90),
                     Text(
                       'Menu Pesanan',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tester/theme/theme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MakananItem extends StatelessWidget {
   final String nama;
@@ -33,8 +34,12 @@ class MakananItem extends StatelessWidget {
             decoration:
                 BoxDecoration(border: Border.all(color: secondary, width: 2)),
             child: ClipRRect(
-              child: Image.asset(
-                gambar,
+              child: CachedNetworkImage(
+                imageUrl: gambar,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,6 +58,7 @@ class MakananItem extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(

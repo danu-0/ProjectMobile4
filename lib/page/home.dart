@@ -4,7 +4,9 @@ import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/cardMakanan.dart';
 import 'package:tester/widget/list.dart';
 import 'package:get/get.dart';
-
+import '../api/product.dart';
+import '../controller/controller.dart';
+import '../model/product.dart';
 import '../widget/bottomNav.dart';
 
 class Home extends StatefulWidget {
@@ -15,6 +17,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late Future<List<Produk>> _futureProducts;
   var indexKategori = 0;
   var currentIndex = 0;
 
@@ -24,31 +27,15 @@ class _HomeState extends State<Home> {
     });
   }
 
-  final List<Map<String, dynamic>> cardMakanan = [
-    {
-      'nama': 'Nasi Goreng',
-      'gambar': 'assets/makanan/pai.png',
-      'harga': 15000,
-    },
-    {
-      'nama': 'Ayam Goreng',
-      'gambar': 'assets/makanan/lalapan.png',
-      'harga': 20000,
-    },
-    {
-      'nama': 'Sate Ayam',
-      'gambar': 'assets/makanan/pai.png',
-      'harga': 25000,
-    },
-    {
-      'nama': 'Mie Goreng',
-      'gambar': 'assets/makanan/lalapan.png',
-      'harga': 12000,
-    },
-  ];
+  void initState() {
+    super.initState();
+    _futureProducts = fetchProducts()
+        .then((data) => data.map((item) => Produk.fromJson(item)).toList());
+  }
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     final cController = Get.put(MyController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -77,7 +64,7 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nama',
+                      '${userController.userData['username']}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: semiBold,
@@ -85,7 +72,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Text(
-                      'Job',
+                      '${userController.userData['role']}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: regular,
@@ -99,75 +86,87 @@ class _HomeState extends State<Home> {
             Gap(30),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 130,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Image.asset(
-                        'assets/baner.png',
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ),
-                    Gap(30),
-                    ListMenu(text: 'Makanan'),
-                    Gap(30),
-                    Container(
-                      height: 154,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cardMakanan.length,
-                        itemBuilder: (context, index) {
-                          return MakananItem(
-                            nama: cardMakanan[index]['nama'],
-                            gambar: cardMakanan[index]['gambar'],
-                            harga: cardMakanan[index]['harga'],
-                          );
-                        },
-                      ),
-                    ),
-                    Gap(30),
-                    ListMenu(text: 'Minuman'),
-                    Gap(30),
-                    Container(
-                      height: 154,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cardMakanan.length,
-                        itemBuilder: (context, index) {
-                          return MakananItem(
-                            nama: cardMakanan[index]['nama'],
-                            gambar: cardMakanan[index]['gambar'],
-                            harga: cardMakanan[index]['harga'],
-                          );
-                        },
-                      ),
-                    ),
-                    Gap(30),
-                    ListMenu(text: 'Snack'),
-                    Gap(30),
-                    Container(
-                      height: 154,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cardMakanan.length,
-                        itemBuilder: (context, index) {
-                          return MakananItem(
-                            nama: cardMakanan[index]['nama'],
-                            gambar: cardMakanan[index]['gambar'],
-                            harga: cardMakanan[index]['harga'],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                child: FutureBuilder<List<Produk>>(
+                    future: _futureProducts,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Failed to load products'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text('No products available'));
+                      } else {
+                        var products = snapshot.data!;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 130,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: primary,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Image.asset(
+                                'assets/baner.png',
+                                fit: BoxFit.cover,
+                                alignment: Alignment.topCenter,
+                              ),
+                            ),
+                            Gap(30),
+                            ListMenu(text: 'Makanan'),
+                            Gap(30),
+                            Container(
+                                height: 154,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    return MakananItem(
+                                      nama: products[index].nama,
+                                      gambar: products[index].gambar,
+                                      harga: products[index].harga,
+                                    );
+                                  },
+                                )),
+                            Gap(30),
+                            ListMenu(text: 'Minuman'),
+                            Gap(30),
+                            Container(
+                              height: 154,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: products.length,
+                                itemBuilder: (context, index) {
+                                  return MakananItem(
+                                    nama: products[index].nama,
+                                    gambar: products[index].gambar,
+                                    harga: products[index].harga,
+                                  );
+                                },
+                              ),
+                            ),
+                            Gap(30),
+                            ListMenu(text: 'Snack'),
+                            Gap(30),
+                            Container(
+                              height: 154,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: products.length,
+                                itemBuilder: (context, index) {
+                                  return MakananItem(
+                                    nama: products[index].nama,
+                                    gambar: products[index].gambar,
+                                    harga: products[index].harga,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
               ),
             )
           ],
