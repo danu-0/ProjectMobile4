@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_picker/gallery_picker.dart';
 import 'package:gap/gap.dart';
@@ -25,6 +26,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
   final TextEditingController _deskController = TextEditingController();
   File? _imageFile;
   String? _imageUrl;
+  final List<String> _categories = ['Makanan', 'Minuman', 'Snack'];
+  String? _selectedCategory;
 
   @override
   void initState() {
@@ -95,7 +98,11 @@ class _UploadProductPageState extends State<UploadProductPage> {
     final stock = int.tryParse(_stockController.text);
     final deskrispi = _deskController.text;
 
-    if (name.isEmpty || price == null || stock == null || deskrispi.isEmpty) {
+    if (name.isEmpty ||
+        price == null ||
+        stock == null ||
+        deskrispi.isEmpty ||
+        _selectedCategory == null) {
       Get.snackbar(
         'Error',
         'Please fill all fields.',
@@ -117,6 +124,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
           'harga': price,
           'desk': deskrispi,
           'stok': stock,
+          'kategori': _selectedCategory,
         }),
       );
 
@@ -159,7 +167,6 @@ class _UploadProductPageState extends State<UploadProductPage> {
             image: DecorationImage(
                 image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: selectImageFromGallery,
@@ -216,6 +223,11 @@ class _UploadProductPageState extends State<UploadProductPage> {
                 controller: _nameController),
             Gap(20),
             CustomKeyboard(
+                desk: 'Desk',
+                keyboardType: TextInputType.text,
+                controller: _deskController),
+            Gap(20),
+            CustomKeyboard(
                 desk: 'Price',
                 keyboardType: TextInputType.number,
                 controller: _priceController),
@@ -225,10 +237,32 @@ class _UploadProductPageState extends State<UploadProductPage> {
                 keyboardType: TextInputType.number,
                 controller: _stockController),
             Gap(30),
-            CustomKeyboard(
-                desk: 'Desk',
-                keyboardType: TextInputType.text,
-                controller: _deskController),
+            DropdownButtonFormField<String>(
+              value: _selectedCategory,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedCategory = newValue;
+                });
+              },
+              items: _categories.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              decoration: InputDecoration(
+                labelText: 'Category',
+                labelStyle: TextStyle(color: secondarytext),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: primary),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: primary),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
             Gap(30),
             buton(
                 onPressed: () async {

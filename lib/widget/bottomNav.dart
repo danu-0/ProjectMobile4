@@ -32,22 +32,22 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/library');
+              Navigator.pushNamed(context, '/shop');
               onItemTapped(1);
             },
             icon: Obx(() => Icon(
-                  Icons.library_books_outlined,
+                  Icons.shopping_cart_outlined,
                   size: 25,
                   color: currentIndex.value == 1 ? primary : secondarytext,
                 )),
           ),
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/shop');
+              Navigator.pushNamed(context, '/library');
               onItemTapped(2);
             },
             icon: Obx(() => Icon(
-                  Icons.shopping_cart_outlined,
+                  Icons.library_books_outlined,
                   size: 25,
                   color: currentIndex.value == 2 ? primary : secondarytext,
                 )),

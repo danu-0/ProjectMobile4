@@ -12,15 +12,17 @@ class ListMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(left: 4),
       height: 34,
-      width: 106,
+      width: 130,
       decoration: BoxDecoration(
           border: Border.all(color: secondary, width: 2),
           borderRadius: BorderRadius.circular(6)),
       child: Center(
         child: Text(
           text,
-          style: TextStyle(color: primary, fontSize: 13, fontWeight: semiBold),
+          style:
+              TextStyle(color: secondary, fontSize: 13, fontWeight: semiBold),
         ),
       ),
     );

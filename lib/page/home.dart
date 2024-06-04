@@ -4,6 +4,7 @@ import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/cardMakanan.dart';
 import 'package:tester/widget/list.dart';
 import 'package:get/get.dart';
+import 'package:tester/widget/slidebanner.dart';
 import '../api/product.dart';
 import '../controller/controller.dart';
 import '../model/product.dart';
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
                 Container(
                     child: Icon(
                   Icons.account_circle_outlined,
-                  size: 46,
+                  size: 56,
                 )),
                 Gap(16),
                 Column(
@@ -83,7 +84,7 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            Gap(30),
+            Gap(18),
             Expanded(
               child: SingleChildScrollView(
                 child: FutureBuilder<List<Produk>>(
@@ -97,6 +98,16 @@ class _HomeState extends State<Home> {
                         return Center(child: Text('No products available'));
                       } else {
                         var products = snapshot.data!;
+                        var makanan = products
+                            .where((product) => product.kategori == 'Makanan')
+                            .toList();
+                        var minuman = products
+                            .where((product) => product.kategori == 'Minuman')
+                            .toList();
+                        var snack = products
+                            .where((product) => product.kategori == 'Snack')
+                            .toList();
+
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -107,58 +118,69 @@ class _HomeState extends State<Home> {
                                 color: primary,
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: Image.asset(
-                                'assets/baner.png',
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
-                              ),
+                              child: AutoScrollingBackground(imageList: [
+                                'assets/banner.png',
+                                'assets/banner2.png',
+                                'assets/banner3.png',
+                                'assets/banner4.png',
+                                'assets/banner5.png',
+                              ]),
                             ),
                             Gap(30),
                             ListMenu(text: 'Makanan'),
-                            Gap(30),
+                            Gap(18),
                             Container(
                                 height: 154,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: products.length,
+                                  itemCount: makanan.length,
                                   itemBuilder: (context, index) {
                                     return MakananItem(
-                                      nama: products[index].nama,
-                                      gambar: products[index].gambar,
-                                      harga: products[index].harga,
+                                      nama: makanan[index].nama,
+                                      gambar: makanan[index].gambar,
+                                      harga: makanan[index].harga,
+                                      desk: makanan[index].desk,
+                                      produkId: makanan[index].id,
+                                      kategori: makanan[index].kategori,
                                     );
                                   },
                                 )),
                             Gap(30),
                             ListMenu(text: 'Minuman'),
-                            Gap(30),
+                            Gap(18),
                             Container(
                               height: 154,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: products.length,
+                                itemCount: minuman.length,
                                 itemBuilder: (context, index) {
                                   return MakananItem(
-                                    nama: products[index].nama,
-                                    gambar: products[index].gambar,
-                                    harga: products[index].harga,
+                                    nama: minuman[index].nama,
+                                    gambar: minuman[index].gambar,
+                                    harga: minuman[index].harga,
+                                    desk: minuman[index].desk,
+                                    produkId: minuman[index].id,
+                                    kategori: minuman[index].kategori,
                                   );
                                 },
                               ),
                             ),
                             Gap(30),
                             ListMenu(text: 'Snack'),
-                            Gap(30),
+                            Gap(18),
                             Container(
                               height: 154,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: products.length,
+                                itemCount: snack.length,
                                 itemBuilder: (context, index) {
                                   return MakananItem(
-                                    nama: products[index].nama,
-                                    gambar: products[index].gambar,
-                                    harga: products[index].harga,
+                                    nama: snack[index].nama,
+                                    gambar: snack[index].gambar,
+                                    harga: snack[index].harga,
+                                    desk: snack[index].desk,
+                                    produkId: snack[index].id,
+                                    kategori: snack[index].kategori,
                                   );
                                 },
                               ),

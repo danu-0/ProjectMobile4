@@ -122,7 +122,9 @@ class _RegisterState extends State<Register> {
                       iconSize: 24,
                       elevation: 5,
                       dropdownColor: Colors.white.withOpacity(0.9),
-                      style: TextStyle(color: primary),
+                      style: TextStyle(
+                        color: primary,
+                      ),
                       borderRadius: BorderRadius.circular(10),
                       onChanged: (String? newValue) {
                         setState(() {
@@ -158,4 +160,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-

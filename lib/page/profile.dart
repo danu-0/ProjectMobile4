@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tester/page/home.dart';
+import 'package:tester/page/login.dart';
 import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/bottomNav.dart';
 import 'package:get/get.dart';
+
+import '../controller/controller.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -13,6 +16,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final UserController userController = Get.find();
   var currentIndex = 3;
   @override
   Widget build(BuildContext context) {
@@ -51,13 +55,15 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Kangkung Kuning',
+                            '${userController.userData['username']}',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: semiBold,
                                 color: primary),
                           ),
-                          Text('Cashier')
+                          Text(
+                            '${userController.userData['email']}',
+                          )
                         ],
                       ),
                     ],
@@ -94,14 +100,17 @@ class _ProfileState extends State<Profile> {
                     color: secondary,
                     thickness: 1,
                   ),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.only(left: 30, top: 50)),
-                      Icon(Icons.exit_to_app_rounded,
-                          size: 30, color: Colors.red[700]),
-                      Gap(20),
-                      Text('Keluar'),
-                    ],
+                  GestureDetector(
+                    onTap: () => Get.off(Login()),
+                    child: Row(
+                      children: [
+                        Padding(padding: EdgeInsets.only(left: 30, top: 50)),
+                        Icon(Icons.exit_to_app_rounded,
+                            size: 30, color: Colors.red[700]),
+                        Gap(20),
+                        Text('Keluar'),
+                      ],
+                    ),
                   ),
                 ],
               ),

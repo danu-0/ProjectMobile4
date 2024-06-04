@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: SplashPage(),
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashPage(),
