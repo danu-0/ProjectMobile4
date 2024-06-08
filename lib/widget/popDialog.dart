@@ -91,7 +91,7 @@ class OrderDialog extends StatelessWidget {
     final UserController userController = Get.find();
 
     final userId = userController.userData['id'];
-    final url = Uri.parse('http://10.0.2.2:3000/pesanan');
+    final url = Uri.parse('https://nest-js-nine.vercel.app/pesanan');
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -210,6 +210,58 @@ class _UpdateOrderDialogState extends State<UpdateOrderDialog> {
           },
           child: Text(
             'Update Order',
+            style: TextStyle(color: primary),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Dialoguu extends StatelessWidget {
+  final String alert;
+  final String pesan;
+  final String btn;
+  final VoidCallback onPressed;
+
+  Dialoguu(
+      {Key? key,
+      required this.alert,
+      required this.pesan,
+      required this.btn,
+      required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: primary,
+      title: Text(
+        alert,
+        style: TextStyle(fontWeight: FontWeight.bold, color: white),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            pesan,
+            style: TextStyle(color: price),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: white),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            btn,
             style: TextStyle(color: primary),
           ),
         ),

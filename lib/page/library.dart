@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:tester/widget/list.dart';
 import '../controller/controller.dart';
-import '../widget/listFavorit.dart';
 
 class Library extends StatefulWidget {
   const Library({super.key});
@@ -33,7 +32,7 @@ class _LibraryState extends State<Library> {
     try {
       final userId = userController.userData['id'];
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:3000/pesanan/user/$userId'),
+        Uri.parse('https://nest-js-nine.vercel.app/pesanan/user/$userId'),
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -50,7 +49,7 @@ class _LibraryState extends State<Library> {
   }
 
   Future<void> deletePesanan(int pesananId) async {
-    final url = Uri.parse('http://10.0.2.2:3000/pesanan/$pesananId');
+    final url = Uri.parse('https://nest-js-nine.vercel.app/pesanan/$pesananId');
     try {
       final response = await http.delete(url);
       if (response.statusCode == 200) {
@@ -200,58 +199,7 @@ class _LibraryState extends State<Library> {
 
 
 
-// final List<Map<String, dynamic>> cardFavorite = [
-//   {
-//     'nama': 'Nasi Goreng',
-//     'gambar': 'assets/makanan/pai.png',
-//     'total': '20',
-//     'nomer': '1',
-//   },
-//   {
-//     'nama': 'Nasi Goreng',
-//     'gambar': 'assets/makanan/pai.png',
-//     'total': '20',
-//     'nomer': '1',
-//   },
-//   {
-//     'nama': 'Nasi Goreng',
-//     'gambar': 'assets/makanan/pai.png',
-//     'total': '20',
-//     'nomer': '1',
-//   },
-//   {
-//     'nama': 'Ayam Goreng',
-//     'gambar': 'assets/makanan/lalapan.png',
-//     'total': ' 20',
-//     'nomer': '1',
-//   },
-//   {
-//     'nama': 'Sate Ayam',
-//     'gambar': 'assets/makanan/pai.png',
-//     'total': '  30',
-//     'nomer': '2',
-//   },
-//   {
-//     'nama': 'Mie Goreng',
-//     'gambar': 'assets/makanan/lalapan.png',
-//     'total': '30',
-//     'nomer': '3',
-//   },
-//   {
-//     'nama': 'Mie Goreng',
-//     'gambar': 'assets/makanan/lalapan.png',
-//     'total': '30',
-//     'nomer': '3',
-//   },
-//   {
-//     'nama': 'Mie Goreng',
-//     'gambar': 'assets/makanan/lalapan.png',
-//     'total': '30',
-//     'nomer': '3',
-//   },
-// ];
-
-
+//bagian admin
 // Row(
 //                       children: [
 //                         Container(

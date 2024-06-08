@@ -92,7 +92,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
     }
 
     final url = Uri.parse(
-        'http://10.0.2.2:3000/product'); // Sesuaikan dengan endpoint backend Anda
+        'https://nest-js-nine.vercel.app/product'); // Sesuaikan dengan endpoint backend Anda
     final name = _nameController.text;
     final price = int.tryParse(_priceController.text);
     final stock = int.tryParse(_stockController.text);
@@ -161,118 +161,129 @@ class _UploadProductPageState extends State<UploadProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
-        child: ListView(
-          children: [
-            GestureDetector(
-              onTap: selectImageFromGallery,
-              child: DottedBorder(
-                  dashPattern: [4.4],
-                  strokeWidth: 2,
-                  radius: Radius.circular(10),
-                  color: secondarytext,
-                  child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: white, borderRadius: BorderRadius.circular(5)),
-                      child: _imageFile == null
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                  IconButton(
-                                    onPressed: selectImageFromGallery,
-                                    icon: Icon(
-                                        Icons.drive_folder_upload_outlined),
-                                    iconSize: 36,
-                                    color: secondarytext,
-                                  ),
-                                  Text(
-                                    'Select Image',
-                                    style: TextStyle(color: secondarytext),
-                                  )
-                                ])
-                          : Image.file(
-                              _imageFile!,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ))),
-            ),
-            Gap(10),
-            _imageFile == null
-                ? Center(
-                    child: Text(
-                      'No image selected.',
-                      style: TextStyle(color: secondarytext),
+      body: Stack(children: [
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
+          child: ListView(
+            children: [
+              GestureDetector(
+                onTap: selectImageFromGallery,
+                child: DottedBorder(
+                    dashPattern: [4.4],
+                    strokeWidth: 2,
+                    radius: Radius.circular(10),
+                    color: secondarytext,
+                    child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: _imageFile == null
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                    IconButton(
+                                      onPressed: selectImageFromGallery,
+                                      icon: Icon(
+                                          Icons.drive_folder_upload_outlined),
+                                      iconSize: 36,
+                                      color: secondarytext,
+                                    ),
+                                    Text(
+                                      'Select Image',
+                                      style: TextStyle(color: secondarytext),
+                                    )
+                                  ])
+                            : Image.file(
+                                _imageFile!,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              ))),
+              ),
+              Gap(10),
+              _imageFile == null
+                  ? Center(
+                      child: Text(
+                        'No image selected.',
+                        style: TextStyle(color: secondarytext),
+                      ),
+                    )
+                  : Text(
+                      _imageFile!.path.split('/').last,
+                      style: TextStyle(color: primary, fontWeight: bold),
                     ),
-                  )
-                : Text(
-                    _imageFile!.path.split('/').last,
-                    style: TextStyle(color: primary, fontWeight: bold),
+              Gap(20),
+              CustomKeyboard(
+                  desk: 'Product Name',
+                  keyboardType: TextInputType.text,
+                  controller: _nameController),
+              Gap(20),
+              CustomKeyboard(
+                  desk: 'Desk',
+                  keyboardType: TextInputType.text,
+                  controller: _deskController),
+              Gap(20),
+              CustomKeyboard(
+                  desk: 'Price',
+                  keyboardType: TextInputType.number,
+                  controller: _priceController),
+              Gap(20),
+              CustomKeyboard(
+                  desk: 'Stock',
+                  keyboardType: TextInputType.number,
+                  controller: _stockController),
+              Gap(30),
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedCategory = newValue;
+                  });
+                },
+                items:
+                    _categories.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  labelText: 'Category',
+                  labelStyle: TextStyle(color: secondarytext),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primary),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-            Gap(20),
-            CustomKeyboard(
-                desk: 'Product Name',
-                keyboardType: TextInputType.text,
-                controller: _nameController),
-            Gap(20),
-            CustomKeyboard(
-                desk: 'Desk',
-                keyboardType: TextInputType.text,
-                controller: _deskController),
-            Gap(20),
-            CustomKeyboard(
-                desk: 'Price',
-                keyboardType: TextInputType.number,
-                controller: _priceController),
-            Gap(20),
-            CustomKeyboard(
-                desk: 'Stock',
-                keyboardType: TextInputType.number,
-                controller: _stockController),
-            Gap(30),
-            DropdownButtonFormField<String>(
-              value: _selectedCategory,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedCategory = newValue;
-                });
-              },
-              items: _categories.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              decoration: InputDecoration(
-                labelText: 'Category',
-                labelStyle: TextStyle(color: secondarytext),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: primary),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: primary),
-                  borderRadius: BorderRadius.circular(10.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primary),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
-            ),
-            Gap(30),
-            buton(
-                onPressed: () async {
-                  await uploadImageToFirebase();
-                  await createProduct();
-                },
-                text: 'Upload')
-          ],
+              Gap(30),
+            ],
+          ),
         ),
-      ),
+        Positioned(
+            left: 0,
+            right: 0,
+            bottom: 10,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: buton(
+                  onPressed: () async {
+                    await uploadImageToFirebase();
+                    await createProduct();
+                  },
+                  text: 'Upload'),
+            ))
+      ]),
     );
   }
 }

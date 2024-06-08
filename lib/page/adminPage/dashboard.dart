@@ -4,14 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:tester/page/adminPage/addProduct.dart';
-import 'package:tester/page/login.dart';
+import 'package:tester/page/autentification/login.dart';
 import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/dahsboardCard.dart';
 
 import '../../controller/controller.dart';
+import '../../widget/popDialog.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
+
+  void _outDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialoguu(
+            alert: 'Log Out',
+            pesan: 'Yakin Ingin Logout',
+            btn: 'Log Out',
+            onPressed: () {
+              Get.offAll(Login());
+            });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +78,7 @@ class Dashboard extends StatelessWidget {
                       ],
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Get.off(Login());
-                      },
+                      onTap: () => _outDialog(context),
                       child: Icon(
                         Icons.logout,
                         color: logout,

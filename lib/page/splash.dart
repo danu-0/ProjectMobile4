@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../page/login.dart';
+import 'autentification/login.dart';
 import '../theme/theme.dart';
 
 class SplashPage extends StatefulWidget {

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:tester/widget/formR.dart';
-import '../page/login.dart';
-import '../theme/theme.dart';
-import '../widget/buton.dart';
-import '../widget/textbuton.dart';
+import 'login.dart';
+import '../../theme/theme.dart';
+import '../../widget/buton.dart';
+import '../../widget/textbuton.dart';
 import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
@@ -26,7 +26,7 @@ class _RegisterState extends State<Register> {
   List<String> _roles = ['PELANGGAN', 'ADMIN'];
 
   Future<void> registerUser() async {
-    final url = Uri.parse('http://10.0.2.2:3000/user');
+    final url = Uri.parse('https://nest-js-nine.vercel.app/user');
     final Map<String, dynamic> userData = {
       'username': _username,
       'email': _email,

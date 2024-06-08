@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tester/page/home.dart';
-import 'package:tester/page/pembayaran.dart';
 import 'package:tester/widget/bottomNav.dart';
 import 'package:tester/widget/buton.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +42,7 @@ class _ShopPageState extends State<ShopPage> {
     try {
       final userId = userController.userData['id'];
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:3000/pesanan/user/$userId'),
+        Uri.parse('https://nest-js-nine.vercel.app/pesanan/user/$userId'),
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -59,7 +58,7 @@ class _ShopPageState extends State<ShopPage> {
   }
 
   Future<void> deletePesanan(int pesananId) async {
-    final url = Uri.parse('http://10.0.2.2:3000/pesanan/$pesananId');
+    final url = Uri.parse('https://nest-js-nine.vercel.app/pesanan/$pesananId');
     try {
       final response = await http.delete(url);
       if (response.statusCode == 200) {
@@ -75,7 +74,7 @@ class _ShopPageState extends State<ShopPage> {
   }
 
   Future<void> updatePesanan(int pesananId, int newQtt) async {
-    final url = Uri.parse('http://10.0.2.2:3000/pesanan/$pesananId');
+    final url = Uri.parse('https://nest-js-nine.vercel.app/pesanan/$pesananId');
     try {
       final response = await http.patch(
         url,
@@ -125,6 +124,23 @@ class _ShopPageState extends State<ShopPage> {
         totalHarga -= pesanan['harga'] * pesanan['qtt'];
       }
     });
+  }
+
+  //dialog delete data
+  void _delDialog(BuildContext context, int pesananId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialoguu(
+            alert: 'Delete',
+            pesan: 'Yakin Ingin Hapus',
+            btn: 'Delete',
+            onPressed: () {
+              deletePesanan(pesananId);
+              Navigator.pop(context);
+            });
+      },
+    );
   }
 
   @override
@@ -190,7 +206,7 @@ class _ShopPageState extends State<ShopPage> {
                           children: [
                             Container(
                               width: double.infinity,
-                              height: 450,
+                              height: 480,
                               color: Colors.transparent,
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -223,7 +239,9 @@ class _ShopPageState extends State<ShopPage> {
                                           desk: desk,
                                           kategori: kategori,
                                           createdAt: createdAt,
-                                          onPressed: () => deletePesanan(id),
+                                          onPressed: () => _delDialog(
+                                              context, pesanan['id']),
+                                          // onPressed: () => deletePesanan(id),
                                           onpressedEdit: () =>
                                               _showUpdateDialog(pesanan),
                                           onSelect: (isSelected) =>

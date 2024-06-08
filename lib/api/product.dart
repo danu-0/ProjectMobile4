@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<List<Map<String, dynamic>>> fetchProducts() async {
-  final url = Uri.parse(
-      'http://10.0.2.2:3000/product'); // Sesuaikan URL dengan endpoint Anda
+  final url = Uri.parse('https://nest-js-nine.vercel.app/product');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
