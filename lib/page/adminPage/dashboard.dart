@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:tester/page/aboutUs.dart';
 import 'package:tester/page/adminPage/addProduct.dart';
 import 'package:tester/page/autentification/login.dart';
 import 'package:tester/theme/theme.dart';
@@ -139,63 +140,68 @@ class Dashboard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Gap(10),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: primary4,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'About Us',
-                            style: TextStyle(
-                                fontSize: 21, color: white, fontWeight: bold),
-                          ),
-                          Gap(5),
-                          CircleAvatar(
-                            radius: 36,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: AssetImage('assets/logo.png'),
-                          ),
-                          Gap(10),
-                          Text(
-                            'Kami Medaran, menawarkan list produk makanan dengan cita rasa khas daerah, dan harga terjangkau',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: white,
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(aboutUs());
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: primary4,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'About Us',
+                              style: TextStyle(
+                                  fontSize: 21, color: white, fontWeight: bold),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Gap(21),
-                          Text(
-                            'Special Thanks',
-                            style: TextStyle(
-                                fontSize: 21, color: white, fontWeight: bold),
-                          ),
-                          Gap(10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 21,
-                                backgroundColor: Colors.transparent,
-                                backgroundImage:
-                                    AssetImage('assets/icon/milo.png'),
+                            Gap(5),
+                            CircleAvatar(
+                              radius: 36,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: AssetImage('assets/logo.png'),
+                            ),
+                            Gap(10),
+                            Text(
+                              'Kami Medaran, menawarkan list produk makanan dengan cita rasa khas daerah, dan harga terjangkau',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: white,
                               ),
-                              Gap(21),
-                              CircleAvatar(
-                                radius: 21,
-                                backgroundImage:
-                                    AssetImage('assets/icon/mu.png'),
-                              ),
-                            ],
-                          ),
-                          Gap(10)
-                        ],
+                              textAlign: TextAlign.center,
+                            ),
+                            Gap(21),
+                            Text(
+                              'Special Thanks',
+                              style: TextStyle(
+                                  fontSize: 21, color: white, fontWeight: bold),
+                            ),
+                            Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 21,
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage:
+                                      AssetImage('assets/icon/milo.png'),
+                                ),
+                                Gap(21),
+                                CircleAvatar(
+                                  radius: 21,
+                                  backgroundImage:
+                                      AssetImage('assets/icon/mu.png'),
+                                ),
+                              ],
+                            ),
+                            Gap(10)
+                          ],
+                        ),
                       ),
                     )
                   ],

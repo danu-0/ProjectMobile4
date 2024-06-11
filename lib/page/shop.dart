@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:midtrans_sdk/midtrans_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ import '../controller/controller.dart';
 import '../theme/theme.dart';
 import '../widget/list.dart';
 import '../widget/listFavorit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -22,10 +24,15 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
+  String clientKey = dotenv.env['MIDTRANS_CLIENT_KEY'] ?? "";
+  String baseUrl = dotenv.env['BASE_URL'] ?? "";
+  late final MidtransSDK? _midtrans;
+
   var currentIndex = 2;
   final UserController userController = Get.find<UserController>();
   List<Map<String, dynamic>> selectedItems = [];
   List<Map<String, dynamic>> cardPesanan = [];
+  final TextEditingController nameController = TextEditingController();
   double totalHarga = 0;
   String formatHarga(int harga) {
     final hargaFormat = NumberFormat("#,##0", "id_ID");
@@ -36,6 +43,51 @@ class _ShopPageState extends State<ShopPage> {
   void initState() {
     super.initState();
     fetchPesananData();
+    _initSDK();
+  }
+
+  void _initSDK() async {
+    try {
+      _midtrans = await MidtransSDK.init(
+        config: MidtransConfig(
+          clientKey: clientKey,
+          merchantBaseUrl: "https://nest-js-nine.vercel.app/midtrans/payment/",
+          colorTheme: ColorTheme(
+            colorPrimary: Colors.blue,
+            colorPrimaryDark: Colors.blue,
+            colorSecondary: Colors.blue,
+          ),
+        ),
+      );
+      _midtrans?.setUIKitCustomSetting(
+        skipCustomerDetailsPages: true,
+      );
+      _midtrans!.setTransactionFinishedCallback((result) {
+        _showToast('Berhasil di Bayar', false);
+      });
+      print('SDK Initialized Successfully');
+    } catch (e) {
+      print('Error initializing Midtrans SDK: $e');
+      _showToast('Gagal melakukan pembayaran', true);
+    }
+  }
+
+  void _showToast(String msg, bool isError) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: isError ? Colors.red : Colors.green,
+      textColor: white,
+      fontSize: 16.0,
+    );
+  }
+
+  @override
+  void dispose() {
+    _midtrans?.removeTransactionFinishedCallback();
+    super.dispose();
   }
 
   Future<void> fetchPesananData() async {
@@ -91,6 +143,59 @@ class _ShopPageState extends State<ShopPage> {
       }
     } catch (error) {
       print('Error updating pesanan: $error');
+    }
+  }
+
+  Future<void> createPayment() async {
+    final List<Map<String, dynamic>> payments = selectedItems.map((pesanan) {
+      return {
+        'id': pesanan['id'],
+        'produkId': pesanan['produkId'],
+        'ProdukName': pesanan['ProdukName'],
+        'qtt': pesanan['qtt'],
+        'harga': pesanan['harga'],
+      };
+    }).toList();
+
+    final Map<String, dynamic> paymentData = {
+      'namaPemesan': nameController.text,
+      'pesanan': payments,
+      'totalHarga': totalHarga.toInt(),
+      'status': 'PENDING',
+    };
+    print('Data yang dipilih: ${jsonEncode(paymentData)}');
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://nest-js-nine.vercel.app/midtrans/payment/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(paymentData),
+      );
+
+      if (response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+        final token = responseData['token'];
+        print('Pembayaran berhasil, token: $token');
+
+        _midtrans?.startPaymentUiFlow(token: token);
+
+        // Hapus pesanan setelah pembayaran berhasil
+        for (var pesanan in selectedItems) {
+          deletePesanan(pesanan['id']);
+        }
+
+        setState(() {
+          selectedItems.clear();
+          totalHarga = 0;
+        });
+      } else {
+        print(
+            'Gagal melakukan pembayaran. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error making payment: $error');
     }
   }
 
@@ -206,7 +311,7 @@ class _ShopPageState extends State<ShopPage> {
                           children: [
                             Container(
                               width: double.infinity,
-                              height: 480,
+                              height: 400,
                               color: Colors.transparent,
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -241,7 +346,6 @@ class _ShopPageState extends State<ShopPage> {
                                           createdAt: createdAt,
                                           onPressed: () => _delDialog(
                                               context, pesanan['id']),
-                                          // onPressed: () => deletePesanan(id),
                                           onpressedEdit: () =>
                                               _showUpdateDialog(pesanan),
                                           onSelect: (isSelected) =>
@@ -270,13 +374,55 @@ class _ShopPageState extends State<ShopPage> {
               left: 0,
               right: 0,
               bottom: 10,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.transparent,
-                  child: buton(
-                      onPressed: () {},
-                      text:
-                          'Bayar (Total: ${formatHarga(totalHarga.toInt())})')))
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                          fillColor: primary,
+                          labelText: 'Nama Pemesan',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15))),
+                    ),
+                  ),
+                  Gap(10),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.transparent,
+                      child: buton(
+                          onPressed: () {
+                            if (selectedItems.isEmpty) {
+                              Fluttertoast.showToast(
+                                msg: 'Pilih setidaknya satu pesanan',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
+                              return;
+                            }
+                            if (nameController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                msg: 'Masukkan nama pemesan',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
+                              return;
+                            }
+                            createPayment();
+                          },
+                          text:
+                              'Bayar (Total: ${formatHarga(totalHarga.toInt())})')),
+                ],
+              ))
         ]),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
