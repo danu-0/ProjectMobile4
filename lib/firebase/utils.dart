@@ -22,13 +22,14 @@ Future<File?> getImmageFromGalery(BuildContext context) async {
   } catch (e) {
     print(e);
   }
+  return null;
 }
 
 Future uploadimage(File file) async {
   try {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     final storageRef = FirebaseStorage.instance.ref();
-    final filename = file!.path.split("/").last;
+    final filename = file.path.split("/").last;
     final timestamp = DateTime.now().microsecondsSinceEpoch;
     final uploadRef = storageRef.child("$userId/uploads/$timestamp-$filename");
     await uploadRef.putFile(file);

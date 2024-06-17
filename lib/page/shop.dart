@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tester/page/home.dart';
+import 'package:tester/page/profile.dart';
 import 'package:tester/widget/bottomNav.dart';
 import 'package:tester/widget/buton.dart';
 import 'package:http/http.dart' as http;
@@ -34,6 +35,9 @@ class _ShopPageState extends State<ShopPage> {
   List<Map<String, dynamic>> cardPesanan = [];
   final TextEditingController nameController = TextEditingController();
   double totalHarga = 0;
+  int totalProduk = 0;
+  String? orderId;
+  String? status;
   String formatHarga(int harga) {
     final hargaFormat = NumberFormat("#,##0", "id_ID");
     return hargaFormat.format(harga);
@@ -63,7 +67,17 @@ class _ShopPageState extends State<ShopPage> {
         skipCustomerDetailsPages: true,
       );
       _midtrans!.setTransactionFinishedCallback((result) {
+        setState(() {
+          orderId = result.orderId;
+          status = result.statusMessage;
+        });
+        _printSelectedData();
         _showToast('Berhasil di Bayar', false);
+        setState(() {
+          selectedItems.clear();
+          totalHarga = 0;
+          totalProduk = 0;
+        });
       });
       print('SDK Initialized Successfully');
     } catch (e) {
@@ -161,7 +175,7 @@ class _ShopPageState extends State<ShopPage> {
       'namaPemesan': nameController.text,
       'pesanan': payments,
       'totalHarga': totalHarga.toInt(),
-      'status': 'PENDING',
+      'status': '${status}',
     };
     print('Data yang dipilih: ${jsonEncode(paymentData)}');
 
@@ -185,11 +199,6 @@ class _ShopPageState extends State<ShopPage> {
         for (var pesanan in selectedItems) {
           deletePesanan(pesanan['id']);
         }
-
-        setState(() {
-          selectedItems.clear();
-          totalHarga = 0;
-        });
       } else {
         print(
             'Gagal melakukan pembayaran. Status code: ${response.statusCode}');
@@ -248,6 +257,53 @@ class _ShopPageState extends State<ShopPage> {
     );
   }
 
+  Future<void> _printSelectedData() async {
+    final String namaPemesan = nameController.text;
+
+    // hitung jumlah produk dan total harga dari selectedItems
+    final int jumlahProduk =
+        selectedItems.fold<int>(0, (sum, item) => sum + item['qtt'] as int);
+    final int totalHargaInt = selectedItems.fold<int>(
+        0, (sum, item) => sum + item['harga'] * item['qtt'] as int);
+
+    print('Nama Pemesan: $namaPemesan');
+    print('Jumlah Produk: $jumlahProduk');
+    print('Total Harga: $totalHargaInt');
+    if (orderId != null || status != null) {
+      print('order id: $orderId');
+      print('status: $status');
+    }
+    final Map<String, dynamic> transactionData = {
+      'orderId': orderId,
+      'namaPemesan': namaPemesan,
+      'jumlahProduk': jumlahProduk,
+      'totalHarga': totalHargaInt,
+      'status': status,
+    };
+    final url = Uri.parse('https://nest-js-nine.vercel.app/transaksi');
+    try {
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(transactionData),
+      );
+
+      if (response.statusCode == 201) {
+        print('Data transaksi berhasil disimpan di backend');
+        // Tambahkan logika tambahan jika diperlukan setelah menyimpan transaksi
+      } else {
+        print(
+            'Gagal menyimpan data transaksi di backend. Status code: ${response.statusCode}');
+        // Handle error jika perlu
+      }
+    } catch (error) {
+      print('Error saat mengirim data transaksi: $error');
+      // Handle error koneksi atau kesalahan lainnya
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cController = Get.put(MyController());
@@ -265,36 +321,39 @@ class _ShopPageState extends State<ShopPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                      child: Icon(
-                    Icons.account_circle_outlined,
-                    size: 56,
-                  )),
-                  Gap(16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${userController.userData['username']}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: semiBold,
-                          color: primary,
+              GestureDetector(
+                onTap: () => Get.to(Profile()),
+                child: Row(
+                  children: [
+                    Container(
+                        child: Icon(
+                      Icons.account_circle_outlined,
+                      size: 56,
+                    )),
+                    Gap(16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${userController.userData['username']}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                            color: primary,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${userController.userData['email']}',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: regular,
-                          color: secondarytext,
+                        Text(
+                          '${userController.userData['role']}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: regular,
+                            color: secondarytext,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Gap(20),
               Expanded(
@@ -318,7 +377,7 @@ class _ShopPageState extends State<ShopPage> {
                                 itemCount: cardPesanan.length,
                                 itemBuilder: (context, index) {
                                   final pesanan = cardPesanan[index];
-                                  if (pesanan != null) {
+                                  if (pesanan != true) {
                                     final id = pesanan['id'];
                                     final produkName = pesanan['ProdukName'];
                                     final harga = pesanan['harga'];
@@ -377,14 +436,17 @@ class _ShopPageState extends State<ShopPage> {
               child: Column(
                 children: [
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15)),
                     child: TextField(
                       controller: nameController,
                       decoration: InputDecoration(
                           fillColor: primary,
                           labelText: 'Nama Pemesan',
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15))),
+                            borderRadius: BorderRadius.circular(15),
+                          )),
                     ),
                   ),
                   Gap(10),

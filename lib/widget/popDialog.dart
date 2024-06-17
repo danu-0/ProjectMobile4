@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
@@ -12,78 +14,146 @@ class OrderDialog extends StatelessWidget {
   final String desk;
   final int produkId;
   final String kategori;
+  final String gambar;
 
-  const OrderDialog({
-    Key? key,
-    required this.nama,
-    required this.harga,
-    required this.desk,
-    required this.produkId,
-    required this.kategori,
-  }) : super(key: key);
+  const OrderDialog(
+      {Key? key,
+      required this.nama,
+      required this.harga,
+      required this.desk,
+      required this.produkId,
+      required this.kategori,
+      required this.gambar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController _quantityController = TextEditingController();
 
-    return AlertDialog(
-      backgroundColor: primary,
-      title: Text(
-        '$nama $kategori',
-        style: TextStyle(fontWeight: semiBold, color: white),
+    return Dialog(
+      backgroundColor: Colors.white.withOpacity(0.9),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Text(
-            'Price: Rp $harga',
-            style: TextStyle(color: price),
+          Container(
+            height: 400,
+            width: 350,
           ),
-          Text(
-            'Description: \n$desk',
-            style: TextStyle(color: white),
-          ),
-          TextField(
-              style: TextStyle(color: white),
-              cursorColor: whiteT,
-              controller: _quantityController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Jumlah',
-                labelStyle: TextStyle(color: white),
+          Positioned(
+              top: 20,
+              left: 80,
+              right: 80,
+              child: Container(
+                height: 130,
+                decoration: BoxDecoration(
+                    color: price, borderRadius: BorderRadius.circular(10)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: gambar,
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
+                ),
               )),
+          Positioned(
+            top: 160,
+            left: 20,
+            right: 20,
+            child: Column(
+              children: [
+                Text(
+                  nama,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: primary,
+                    fontWeight: bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Gap(10),
+                Text(
+                  desk,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: primary,
+                    fontWeight: regular,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 230,
+            left: 20,
+            right: 20,
+            child: Form(
+              child: Column(
+                children: [
+                  TextField(
+                      style: TextStyle(color: primary),
+                      cursorColor: primary2,
+                      controller: _quantityController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Jumlah',
+                        labelStyle: TextStyle(color: primary),
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: primary),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: white),
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: primary),
+                  onPressed: () async {
+                    final quantity = int.tryParse(_quantityController.text);
+                    if (quantity != null && quantity > 0) {
+                      await _createOrder(context, quantity);
+                      Navigator.of(context).pop();
+                    } else {
+                      Get.snackbar(
+                        'Error',
+                        'Please enter a valid quantity',
+                        backgroundColor: Colors.white.withOpacity(0.8),
+                        colorText: primary,
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Pesan',
+                    style: TextStyle(color: white),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            'Cancel',
-            style: TextStyle(color: white),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            final quantity = int.tryParse(_quantityController.text);
-            if (quantity != null && quantity > 0) {
-              await _createOrder(context, quantity);
-              Navigator.of(context).pop();
-            } else {
-              Get.snackbar(
-                'Error',
-                'Please enter a valid quantity',
-                backgroundColor: Colors.white.withOpacity(0.8),
-                colorText: primary,
-              );
-            }
-          },
-          child: Text(
-            'Add to Order',
-            style: TextStyle(color: primary),
-          ),
-        ),
-      ],
     );
   }
 

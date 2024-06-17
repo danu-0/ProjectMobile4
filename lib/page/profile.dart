@@ -115,7 +115,7 @@ class _ProfileState extends State<Profile> {
                         Gap(20),
                         GestureDetector(
                             onTap: () => _outDialog(context),
-                            child: Text('Keluar')),
+                            child: Text('Log Out')),
                       ],
                     ),
                   ),

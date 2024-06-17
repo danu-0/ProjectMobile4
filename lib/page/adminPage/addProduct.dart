@@ -219,17 +219,17 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     ),
               Gap(20),
               CustomKeyboard(
-                  desk: 'Product Name',
+                  desk: 'Nama makanan',
                   keyboardType: TextInputType.text,
                   controller: _nameController),
               Gap(20),
               CustomKeyboard(
-                  desk: 'Desk',
+                  desk: 'Deskripsi',
                   keyboardType: TextInputType.text,
                   controller: _deskController),
               Gap(20),
               CustomKeyboard(
-                  desk: 'Price',
+                  desk: 'Harga',
                   keyboardType: TextInputType.number,
                   controller: _priceController),
               Gap(20),
@@ -253,7 +253,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   );
                 }).toList(),
                 decoration: InputDecoration(
-                  labelText: 'Category',
+                  labelText: 'Kategory',
                   labelStyle: TextStyle(color: secondarytext),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: primary),
@@ -278,7 +278,16 @@ class _UploadProductPageState extends State<UploadProductPage> {
               child: buton(
                   onPressed: () async {
                     await uploadImageToFirebase();
-                    await createProduct();
+                    if (_imageUrl != null) {
+                      await createProduct();
+                    } else {
+                      Get.snackbar(
+                        'Error',
+                        'Failed to upload image to Firebase Storage',
+                        backgroundColor: Colors.white.withOpacity(0.8),
+                        colorText: Colors.black,
+                      );
+                    }
                   },
                   text: 'Upload'),
             ))

@@ -101,8 +101,8 @@ class _PesananCardState extends State<PesananCard> {
                   height: 24,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                        color: isSelected ? primary : Colors.transparent),
+                    border:
+                        Border.all(color: isSelected ? primary : secondarytext),
                     color: isSelected ? primary : Colors.transparent,
                   ),
                   child: isSelected
@@ -339,7 +339,7 @@ class _ItemCounterState extends State<ItemCounter> {
 class ListB extends StatelessWidget {
   final String nama;
   final String gambar;
-  final String total;
+  final int total;
   final String itemcounter;
 
   const ListB(

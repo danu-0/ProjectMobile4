@@ -1,10 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:tester/page/aboutUs.dart';
 import 'package:tester/page/adminPage/addProduct.dart';
+import 'package:tester/page/adminPage/chart.dart';
+import 'package:tester/page/adminPage/list_product.dart';
+import 'package:tester/page/adminPage/transaction.dart';
 import 'package:tester/page/autentification/login.dart';
 import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/dahsboardCard.dart';
@@ -98,7 +99,12 @@ class Dashboard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     DashboardCard(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListProduct()));
+                        },
                         text: 'List \nProduct',
                         backgroundColor: primary,
                         icon: Icons.shop_2_outlined,
@@ -122,14 +128,26 @@ class Dashboard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     DashboardCard(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TransactionStatisticsPage()));
+                        },
                         text: 'Management Product',
                         backgroundColor: primary2,
                         icon: Icons.manage_search,
                         iconColor: icon),
                     Gap(10),
                     DashboardCard(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TransactionStatusPage()));
+                        },
                         text: 'All Transaction',
                         backgroundColor: primary3,
                         icon: Icons.list_alt_rounded,
@@ -145,6 +163,7 @@ class Dashboard extends StatelessWidget {
                         Get.to(aboutUs());
                       },
                       child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
                         padding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         width: double.infinity,

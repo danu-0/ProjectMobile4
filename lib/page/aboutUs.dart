@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/page/profile.dart';
 import 'package:tester/theme/theme.dart';
 import 'package:tester/widget/bio.dart';
 
@@ -130,7 +129,7 @@ class aboutUs extends StatelessWidget {
                     Gap(5),
                     Bio(
                         Foto: 'assets/logo.png',
-                        nama: '??',
+                        nama: 'Sarifudien',
                         role: '??',
                         desk: '??'),
                   ],
@@ -208,7 +207,7 @@ class aboutUs extends StatelessWidget {
                         ),
                         Gap(10),
                         Text(
-                          'Telpon : 081234567891',
+                          'Telpon : 082340017349',
                           style: TextStyle(
                               color: white, fontSize: 14, fontWeight: semiBold),
                         ),
