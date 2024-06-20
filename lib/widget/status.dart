@@ -55,7 +55,7 @@ class Status extends StatelessWidget {
                       'Pemesanan',
                       style: TextStyle(
                           fontSize: 12,
-                          color: primarytext,
+                          color: secondarytext,
                           fontWeight: semiBold),
                     )
                   ],
@@ -65,7 +65,8 @@ class Status extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Text(
                     '${cardPesanan.length}',
-                    style: TextStyle(fontSize: 34, fontWeight: bold),
+                    style: TextStyle(
+                        fontSize: 34, color: primary, fontWeight: bold),
                   ),
                 )
               ],
@@ -113,7 +114,7 @@ class Status extends StatelessWidget {
                       'Pelanggan',
                       style: TextStyle(
                           fontSize: 12,
-                          color: primarytext,
+                          color: secondarytext,
                           fontWeight: semiBold),
                     )
                   ],
@@ -123,7 +124,8 @@ class Status extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Text(
                     '${cardPesanan.length}',
-                    style: TextStyle(fontSize: 34, fontWeight: bold),
+                    style: TextStyle(
+                        fontSize: 34, color: primary, fontWeight: bold),
                   ),
                 )
               ],

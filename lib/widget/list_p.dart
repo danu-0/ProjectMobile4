@@ -1,3 +1,4 @@
+import 'package:Medaran/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -32,17 +33,8 @@ class List_p extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: isEven ? Colors.white : Colors.grey[300],
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
+        color: isEven ? white : scafold,
       ),
       child: Row(
         children: [
@@ -50,21 +42,23 @@ class List_p extends StatelessWidget {
             flex: 1,
             child: Text(
               produkId.toString(),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold, color: primary),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
               nama,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: primary),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
               'Rp.${formatHarga(harga)}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold, color: primary),
               textAlign: TextAlign.right,
             ),
           ),
@@ -72,7 +66,7 @@ class List_p extends StatelessWidget {
             flex: 1,
             child: Text(
               stok,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: primary),
               textAlign: TextAlign.right,
             ),
           ),

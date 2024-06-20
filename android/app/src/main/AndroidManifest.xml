@@ -8,8 +8,10 @@
 
     <application
         android:theme="@style/AppTheme"
+        android:label="Medaran"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        tools:replace="android:label">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,7 +40,7 @@
         </activity>
          <activity
             android:name="com.midtrans.sdk.uikit.views.gopay.payment.GoPayPaymentActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat">
         </activity>
         <activity android:name="com.midtrans.sdk.uikit.views.status.PaymentStatusActivity"
             android:theme="@style/PaymentStatusTheme"/>

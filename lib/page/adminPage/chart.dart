@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 import '../../widget/chart.dart';
 
 class TransactionStatisticsPage extends StatefulWidget {

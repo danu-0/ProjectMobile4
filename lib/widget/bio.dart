@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 
 class Bio extends StatelessWidget {
   final String Foto;
@@ -26,7 +26,7 @@ class Bio extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage: AssetImage(Foto),
-            radius: 40,
+            radius: 36,
             backgroundColor: Colors.transparent,
           ),
           Text(

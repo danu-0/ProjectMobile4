@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/cardMakanan.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 
 class TransactionStatusPage extends StatefulWidget {
@@ -27,44 +30,77 @@ class _TransactionStatusPageState extends State<TransactionStatusPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Transaction Status'),
-      ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: fetchTransactions(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No transactions found'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final transaction = snapshot.data![index];
-                return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: ListTile(
-                    title: Text('Order ID: ${transaction['orderId']}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Status: ${transaction['status']}'),
-                        Text('Total Harga: ${transaction['totalHarga']}'),
-                        Text('Jumlah Produk: ${transaction['jumlahProduk']}'),
-                        Text(
-                            'Waktu Transaksi: ${DateTime.parse(transaction['createdAt']).toLocal()}'),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-        },
+      body: Container(
+        padding: EdgeInsets.only(top: 60, left: 30, right: 30),
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Semua Transaksi',
+                  style: TextStyle(
+                      color: primary, fontSize: 20, fontWeight: semiBold),
+                )
+              ],
+            ),
+            Gap(10),
+            Expanded(
+              child: FutureBuilder<List<Map<String, dynamic>>>(
+                future: fetchTransactions(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No transactions found'));
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final transaction = snapshot.data![index];
+                        return CardTransactionA(
+                          orderId: transaction['orderId'],
+                          jumlahProduk: transaction['jumlahProduk'],
+                          totalHarga: transaction['totalHarga'],
+                          status: transaction['status'],
+                          createdAt: DateTime.parse(transaction['createdAt']),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+// Card(
+//                           margin:
+//                               EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//                           child: ListTile(
+//                             title: Text('Order ID: ${transaction['orderId']}'),
+//                             subtitle: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Text('Status: ${transaction['status']}'),
+//                                 Text(
+//                                     'Total Harga: ${transaction['totalHarga']}'),
+//                                 Text(
+//                                     'Jumlah Produk: ${transaction['jumlahProduk']}'),
+//                                 Text(
+//                                     'Waktu Transaksi: ${DateTime.parse(transaction['createdAt']).toLocal()}'),
+//                               ],
+//                             ),
+//                           ),
+//                         );

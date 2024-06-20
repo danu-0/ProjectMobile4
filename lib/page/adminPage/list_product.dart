@@ -1,10 +1,11 @@
+import 'package:Medaran/widget/list.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/model/pesanan.dart';
-import 'package:tester/page/adminPage/addProduct.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/buton.dart';
+import 'package:Medaran/model/pesanan.dart';
+import 'package:Medaran/page/adminPage/addProduct.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/buton.dart';
 import '../../api/product.dart';
 import '../../widget/list_p.dart';
 import 'package:http/http.dart' as http;
@@ -82,32 +83,21 @@ class _ListProductState extends State<ListProduct> {
             Column(
               children: [
                 Text(
-                  'Product',
-                  style: TextStyle(fontSize: 24, fontWeight: bold),
+                  'Semua Produk',
+                  style:
+                      TextStyle(fontSize: 24, fontWeight: bold, color: primary),
                 ),
                 Gap(20),
                 Row(
                   children: [
                     Gap(10),
-                    Text(
-                      'Id',
-                      style: TextStyle(fontSize: 18, fontWeight: semiBold),
-                    ),
-                    Gap(30),
-                    Text(
-                      'Nama',
-                      style: TextStyle(fontSize: 18, fontWeight: semiBold),
-                    ),
-                    Gap(70),
-                    Text(
-                      'Harga',
-                      style: TextStyle(fontSize: 18, fontWeight: semiBold),
-                    ),
-                    Gap(30),
-                    Text(
-                      'Stok',
-                      style: TextStyle(fontSize: 18, fontWeight: semiBold),
-                    ),
+                    ListMenu(text: 'Id'),
+                    Gap(20),
+                    ListMenu(text: 'Nama'),
+                    Gap(66),
+                    ListMenu(text: 'Harga'),
+                    Gap(20),
+                    ListMenu(text: 'Stock')
                   ],
                 ),
                 Gap(5),

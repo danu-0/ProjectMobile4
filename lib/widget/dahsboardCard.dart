@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 
 class DashboardCard extends StatelessWidget {
   final String text;

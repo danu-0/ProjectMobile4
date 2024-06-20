@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/buton.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/buton.dart';
 
 class PesananCard extends StatefulWidget {
   final int id;

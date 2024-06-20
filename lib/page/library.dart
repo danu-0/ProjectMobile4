@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:tester/controller/controller.dart';
-import 'package:tester/page/home.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/bottomNav.dart';
-import 'package:tester/widget/list.dart';
+import 'package:Medaran/controller/controller.dart';
+import 'package:Medaran/page/home.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/bottomNav.dart';
+import 'package:Medaran/widget/list.dart';
 import '../widget/cardMakanan.dart';
 import '../widget/status.dart';
 

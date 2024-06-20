@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 
 import '../controller/controller.dart';
 

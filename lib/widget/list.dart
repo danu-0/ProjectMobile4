@@ -21,8 +21,32 @@ class ListMenu extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style:
-              TextStyle(color: secondary, fontSize: 13, fontWeight: semiBold),
+          style: TextStyle(color: primary, fontSize: 13, fontWeight: semiBold),
+        ),
+      ),
+    );
+  }
+}
+
+class ListMenu2 extends StatelessWidget {
+  final String text;
+  const ListMenu2({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 6),
+      height: 34,
+      decoration: BoxDecoration(
+          border: Border.all(color: primary, width: 2),
+          borderRadius: BorderRadius.circular(6)),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(color: primary, fontSize: 13, fontWeight: semiBold),
         ),
       ),
     );

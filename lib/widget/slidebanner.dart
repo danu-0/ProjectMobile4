@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 import 'dart:async';
 
 class AutoScrollingBackground extends StatefulWidget {

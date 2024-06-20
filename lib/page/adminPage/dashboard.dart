@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/page/aboutUs.dart';
-import 'package:tester/page/adminPage/addProduct.dart';
-import 'package:tester/page/adminPage/chart.dart';
-import 'package:tester/page/adminPage/list_product.dart';
-import 'package:tester/page/adminPage/transaction.dart';
-import 'package:tester/page/autentification/login.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/dahsboardCard.dart';
+import 'package:Medaran/page/aboutUs.dart';
+import 'package:Medaran/page/adminPage/addProduct.dart';
+import 'package:Medaran/page/adminPage/chart.dart';
+import 'package:Medaran/page/adminPage/list_product.dart';
+import 'package:Medaran/page/adminPage/transaction.dart';
+import 'package:Medaran/page/autentification/login.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/dahsboardCard.dart';
 
 import '../../controller/controller.dart';
 import '../../widget/popDialog.dart';

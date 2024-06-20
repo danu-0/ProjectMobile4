@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/widget/buton.dart';
-import 'package:tester/widget/listFavorit.dart';
+import 'package:Medaran/widget/buton.dart';
+import 'package:Medaran/widget/listFavorit.dart';
 
 import '../theme/theme.dart';
 

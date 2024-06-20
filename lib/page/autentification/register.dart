@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/widget/formR.dart';
+import 'package:Medaran/widget/formR.dart';
 import 'login.dart';
 import '../../theme/theme.dart';
 import '../../widget/buton.dart';

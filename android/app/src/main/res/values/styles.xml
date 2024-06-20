@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Tema dasar aplikasi -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,14 +11,14 @@
     </style>
 
     <!-- Tema khusus untuk PaymentMethodsActivity -->
-    <style name="PaymentMethodsTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowActionBar">false</item>
+    <style name="PaymentMethodsTheme" parent="Theme.AppCompat">
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <!-- Tema khusus untuk PaymentStatusActivity -->
-    <style name="PaymentStatusTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowActionBar">false</item>
+    <style name="PaymentStatusTheme" parent="Theme.AppCompat">
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 

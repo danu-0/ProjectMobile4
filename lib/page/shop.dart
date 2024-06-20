@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:tester/page/home.dart';
-import 'package:tester/page/profile.dart';
-import 'package:tester/widget/bottomNav.dart';
-import 'package:tester/widget/buton.dart';
+import 'package:Medaran/page/home.dart';
+import 'package:Medaran/page/profile.dart';
+import 'package:Medaran/widget/bottomNav.dart';
+import 'package:Medaran/widget/buton.dart';
 import 'package:http/http.dart' as http;
-import 'package:tester/widget/popDialog.dart';
+import 'package:Medaran/widget/popDialog.dart';
 import '../controller/controller.dart';
 import '../theme/theme.dart';
 import '../widget/list.dart';
@@ -57,9 +57,9 @@ class _ShopPageState extends State<ShopPage> {
           clientKey: clientKey,
           merchantBaseUrl: "https://nest-js-nine.vercel.app/midtrans/payment/",
           colorTheme: ColorTheme(
-            colorPrimary: Colors.blue,
-            colorPrimaryDark: Colors.blue,
-            colorSecondary: Colors.blue,
+            colorPrimary: primary3,
+            colorPrimaryDark: primary,
+            colorSecondary: primary4,
           ),
         ),
       );
@@ -130,7 +130,12 @@ class _ShopPageState extends State<ShopPage> {
       if (response.statusCode == 200) {
         fetchPesananData();
 
-        print('Pesanan berhasil dihapus');
+        Get.snackbar(
+          'Hapus',
+          'Berhasil Hapus Pesanan',
+          backgroundColor: Colors.white.withOpacity(0.5),
+          colorText: primary,
+        );
       } else {
         print('Gagal menghapus pesanan. Status code: ${response.statusCode}');
       }
@@ -151,7 +156,12 @@ class _ShopPageState extends State<ShopPage> {
       );
       if (response.statusCode == 200) {
         fetchPesananData();
-        print('Pesanan berhasil diperbarui');
+        Get.snackbar(
+          'Update',
+          'Berhasil Update Pesanan',
+          backgroundColor: Colors.white.withOpacity(0.5),
+          colorText: primary,
+        );
       } else {
         print('Gagal memperbarui pesanan. Status code: ${response.statusCode}');
       }
@@ -177,7 +187,7 @@ class _ShopPageState extends State<ShopPage> {
       'totalHarga': totalHarga.toInt(),
       'status': '${status}',
     };
-    print('Data yang dipilih: ${jsonEncode(paymentData)}');
+    // print('Data yang dipilih: ${jsonEncode(paymentData)}');
 
     try {
       final response = await http.post(

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:tester/page/home.dart';
+import 'package:Medaran/page/home.dart';
 import '../../controller/controller.dart';
 import '../../theme/theme.dart';
 import '../../widget/buton.dart';

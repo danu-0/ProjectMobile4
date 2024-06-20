@@ -8,6 +8,7 @@ Color secondarytext = const Color(0xFF959894);
 Color primary = const Color(0xFF003C43);
 Color logout = const Color(0xFFF4303C);
 Color secondary = const Color(0xFF77B0AA);
+Color scafold = const Color(0xFFEAF6F3);
 Color icon = const Color(0xFF9BCF53);
 Color selected = const Color(0xFFEEB700);
 Color price = const Color.fromARGB(255, 168, 99, 1);

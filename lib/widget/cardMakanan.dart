@@ -1,9 +1,9 @@
+import 'package:Medaran/widget/sparator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:tester/widget/buton.dart';
-import 'package:tester/widget/popDialog.dart';
+import 'package:Medaran/widget/popDialog.dart';
 import 'package:intl/intl.dart';
 
 class MakananItem extends StatelessWidget {
@@ -138,69 +138,202 @@ class CardTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Order ID: $orderId',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: primary),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Nama Pemesan: $namaPemesan',
-            style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Jumlah Produk: $jumlahProduk',
-            style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Total Harga: Rp ${formatHarga(totalHarga)}',
-            style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Status: $status',
-            style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Tanggal Pesanan: ${DateFormat('dd MMMM yyyy').format(createdAt)}',
-            style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
-          ),
-          Gap(5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: primary),
-                  onPressed: () {},
-                  child: Text(
-                    'Hapus',
-                    style: TextStyle(
-                      color: white,
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.date_range_sharp,
+                      size: 30,
+                      color: secondarytext,
                     ),
-                  )),
-            ],
-          )
-        ],
-      ),
-    );
+                    Gap(6),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          namaPemesan,
+                          style: TextStyle(
+                              color: primary, fontWeight: bold, fontSize: 20),
+                        ),
+                        Text(
+                          orderId,
+                          style: TextStyle(color: secondarytext),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Text(DateFormat('dd MMMM yyyy').format(createdAt))
+              ],
+            ),
+            Gap(10),
+            Separator(
+              color: secondarytext,
+              height: 1,
+            ),
+            Gap(10),
+            Text(
+              'Jumlah Pesanan: $jumlahProduk',
+              style: TextStyle(color: secondarytext, fontSize: 16),
+            ),
+            Gap(4),
+            Text(
+              'Total Harga: ${formatHarga(totalHarga)}',
+              style: TextStyle(color: secondarytext, fontSize: 16),
+            ),
+            Gap(4),
+            Text(
+              'Status: $status',
+              style: TextStyle(color: secondarytext, fontSize: 16),
+            )
+          ],
+        ));
   }
 }
+
+class CardTransactionA extends StatelessWidget {
+  final String orderId;
+
+  final int jumlahProduk;
+  final int totalHarga;
+  final String status;
+  final DateTime createdAt;
+
+  CardTransactionA({
+    required this.orderId,
+    required this.jumlahProduk,
+    required this.totalHarga,
+    required this.status,
+    required this.createdAt,
+  });
+  String formatHarga(int harga) {
+    final hargaFormat = NumberFormat("#,##0", "id_ID");
+    return hargaFormat.format(harga);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 1,
+              offset: Offset(2, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  orderId,
+                  style: TextStyle(color: secondarytext),
+                ),
+                Text(
+                  DateFormat('dd MMMM yyyy').format(createdAt),
+                  style: TextStyle(color: secondarytext),
+                )
+              ],
+            ),
+            Gap(10),
+            Separator(
+              color: secondarytext,
+              height: 1,
+            ),
+            Gap(10),
+            Text(
+              'Jumlah Pesanan: $jumlahProduk',
+              style: TextStyle(color: secondarytext, fontSize: 16),
+            ),
+            Gap(4),
+            Text(
+              'Total Harga: ${formatHarga(totalHarga)}',
+              style: TextStyle(color: secondarytext, fontSize: 16),
+            ),
+            Gap(4),
+            Text(
+              'Status: $status',
+              style:
+                  TextStyle(color: primary, fontWeight: semiBold, fontSize: 16),
+            )
+          ],
+        ));
+  }
+}
+
+// Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             'Order ID: $orderId',
+//             style: TextStyle(
+//                 fontWeight: FontWeight.bold, fontSize: 16, color: primary),
+//           ),
+//           SizedBox(height: 8),
+//           Text(
+//             'Nama Pemesan: $namaPemesan',
+//             style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
+//           ),
+//           SizedBox(height: 4),
+//           Text(
+//             'Jumlah Produk: $jumlahProduk',
+//             style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
+//           ),
+//           SizedBox(height: 4),
+//           Text(
+//             'Total Harga: Rp ${formatHarga(totalHarga)}',
+//             style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
+//           ),
+//           SizedBox(height: 4),
+//           Text(
+//             'Status: $status',
+//             style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
+//           ),
+//           SizedBox(height: 4),
+//           Text(
+//             'Tanggal Pesanan: ${DateFormat('dd MMMM yyyy').format(createdAt)}',
+//             style: TextStyle(color: primary, fontWeight: regular, fontSize: 15),
+//           ),
+//           Gap(5),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               ElevatedButton(
+//                   style: ElevatedButton.styleFrom(backgroundColor: primary),
+//                   onPressed: () {},
+//                   child: Text(
+//                     'Hapus',
+//                     style: TextStyle(
+//                       color: white,
+//                     ),
+//                   )),
+//             ],
+//           )
+//         ],
+//       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tester/theme/theme.dart';
+import 'package:Medaran/theme/theme.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final RxInt currentIndex;

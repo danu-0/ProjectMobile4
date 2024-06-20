@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/cardMakanan.dart';
-import 'package:tester/widget/list.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/cardMakanan.dart';
+import 'package:Medaran/widget/list.dart';
 import 'package:get/get.dart';
-import 'package:tester/widget/slidebanner.dart';
+import 'package:Medaran/widget/slidebanner.dart';
 import '../api/product.dart';
 import '../controller/controller.dart';
 import '../model/product.dart';

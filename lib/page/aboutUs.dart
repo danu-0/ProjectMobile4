@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/bio.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/bio.dart';
 
 class aboutUs extends StatelessWidget {
   const aboutUs({super.key});
@@ -87,20 +87,20 @@ class aboutUs extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/rafi.jpg',
                         nama: 'Rafi',
                         role: 'Designer',
                         desk: 'Founder Of Design For UI/UX, flow system'),
                     Gap(5),
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/zamri.jpg',
                         nama: 'Zamri',
                         role: 'Frontend',
                         desk:
                             'Founder of frontend, design app, code writing, UI/UX'),
                     Gap(5),
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/tama.jpg',
                         nama: 'Tama',
                         role: 'Designer',
                         desk: 'Founder Of Design For UI/UX, flow system'),
@@ -114,24 +114,24 @@ class aboutUs extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/krisna .jpeg',
                         nama: 'Krisna',
                         role: 'System Analytic',
                         desk:
                             'Founder of system analytic, testing app, add feature'),
                     Gap(5),
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/danu.jpg',
                         nama: 'Danu',
                         role: 'Backend',
                         desk:
                             'Founder of backend, create database, make RestAPI'),
                     Gap(5),
                     Bio(
-                        Foto: 'assets/logo.png',
+                        Foto: 'assets/profile/Aril.jpg',
                         nama: 'Sarifudien',
-                        role: '??',
-                        desk: '??'),
+                        role: 'Bug tester',
+                        desk: 'Find Bug and Report'),
                   ],
                 ),
               ),

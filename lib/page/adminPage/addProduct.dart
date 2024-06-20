@@ -9,9 +9,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dotted_border/dotted_border.dart';
 
-import 'package:tester/theme/theme.dart';
-import 'package:tester/widget/buton.dart';
-import 'package:tester/widget/formUpload.dart';
+import 'package:Medaran/theme/theme.dart';
+import 'package:Medaran/widget/buton.dart';
+import 'package:Medaran/widget/formUpload.dart';
 
 class UploadProductPage extends StatefulWidget {
   @override

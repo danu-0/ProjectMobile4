@@ -2,13 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:tester/firebase/firebase_options.dart';
-import 'package:tester/page/home.dart';
-import 'package:tester/page/library.dart';
-import 'package:tester/page/profile.dart';
-import 'package:tester/page/shop.dart';
-import 'package:tester/page/splash.dart';
-import 'package:tester/firebase/utils.dart';
+import 'package:Medaran/firebase/firebase_options.dart';
+import 'package:Medaran/page/home.dart';
+import 'package:Medaran/page/library.dart';
+import 'package:Medaran/page/profile.dart';
+import 'package:Medaran/page/shop.dart';
+import 'package:Medaran/page/splash.dart';
+import 'package:Medaran/firebase/utils.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
