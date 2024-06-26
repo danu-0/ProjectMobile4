@@ -99,13 +99,18 @@ class _HomeState extends State<Home> {
                       } else {
                         var products = snapshot.data!;
                         var makanan = products
-                            .where((product) => product.kategori == 'Makanan')
+                            .where((product) =>
+                                product.kategori == 'Makanan' &&
+                                product.stok > 0)
                             .toList();
                         var minuman = products
-                            .where((product) => product.kategori == 'Minuman')
+                            .where((product) =>
+                                product.kategori == 'Minuman' &&
+                                product.stok > 0)
                             .toList();
                         var snack = products
-                            .where((product) => product.kategori == 'Snack')
+                            .where((product) =>
+                                product.kategori == 'Snack' && product.stok > 0)
                             .toList();
 
                         return Column(

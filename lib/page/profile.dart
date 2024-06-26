@@ -50,7 +50,7 @@ class _ProfileState extends State<Profile> {
                       Icon(
                         Icons.account_circle_outlined,
                         size: 60,
-                        color: secondarytext,
+                        color: primary,
                       ),
                       Gap(20),
                       Column(
@@ -59,12 +59,16 @@ class _ProfileState extends State<Profile> {
                           Text(
                             '${userController.userData['username']}',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 20,
                                 fontWeight: semiBold,
                                 color: primary),
                           ),
                           Text(
                             '${userController.userData['email']}',
+                            style: TextStyle(
+                                color: primary,
+                                fontSize: 16,
+                                fontStyle: FontStyle.italic),
                           )
                         ],
                       ),
@@ -83,7 +87,11 @@ class _ProfileState extends State<Profile> {
                         color: primary,
                       ),
                       Gap(20),
-                      Text('Profile')
+                      Text(
+                        'Profile',
+                        style: TextStyle(
+                            color: primary, fontSize: 16, fontWeight: semiBold),
+                      )
                     ],
                   ),
                   GestureDetector(
@@ -93,11 +101,17 @@ class _ProfileState extends State<Profile> {
                         Padding(padding: EdgeInsets.only(left: 30, top: 50)),
                         Icon(
                           Icons.error_outline,
-                          size: 30,
+                          size: 29,
                           color: primary,
                         ),
                         Gap(20),
-                        Text('Tentang Kami')
+                        Text(
+                          'Tentang Kami',
+                          style: TextStyle(
+                              color: primary,
+                              fontSize: 16,
+                              fontWeight: semiBold),
+                        )
                       ],
                     ),
                   ),
@@ -111,11 +125,17 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Padding(padding: EdgeInsets.only(left: 30, top: 50)),
                         Icon(Icons.exit_to_app_rounded,
-                            size: 30, color: Colors.red[700]),
+                            size: 28, color: Colors.red[700]),
                         Gap(20),
                         GestureDetector(
                             onTap: () => _outDialog(context),
-                            child: Text('Log Out')),
+                            child: Text(
+                              'Log Out',
+                              style: TextStyle(
+                                  color: primary,
+                                  fontSize: 16,
+                                  fontWeight: semiBold),
+                            )),
                       ],
                     ),
                   ),

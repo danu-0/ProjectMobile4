@@ -21,9 +21,9 @@ class _RegisterState extends State<Register> {
   String _username = '';
   String _email = '';
   String _password = '';
-  String? _selectedRole = '';
+  // String? _selectedRole = '';
 
-  List<String> _roles = ['PELANGGAN', 'ADMIN'];
+  // List<String> _roles = ['PELANGGAN', 'ADMIN'];
 
   Future<void> registerUser() async {
     final url = Uri.parse('https://nest-js-nine.vercel.app/user');
@@ -31,7 +31,10 @@ class _RegisterState extends State<Register> {
       'username': _username,
       'email': _email,
       'password': _password,
-      'role': _selectedRole,
+
+      'role': 'PELANGGAN'
+      //delete akses admin
+      // 'role': _selectedRole,
     };
     try {
       final response = await http.post(
@@ -62,10 +65,10 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  void initState() {
-    super.initState();
-    _selectedRole = _roles.isNotEmpty ? _roles[0] : null;
-  }
+  // void initState() {
+  //   super.initState();
+  //   _selectedRole = _roles.isNotEmpty ? _roles[0] : null;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,35 +116,36 @@ class _RegisterState extends State<Register> {
                     });
                   },
                 ),
-                Gap(16),
-                Column(
-                  children: [
-                    DropdownButton<String>(
-                      value: _selectedRole,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 24,
-                      elevation: 5,
-                      dropdownColor: Colors.white.withOpacity(0.9),
-                      style: TextStyle(
-                        color: primary,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedRole = newValue!;
-                        });
-                      },
-                      items:
-                          _roles.map<DropdownMenuItem<String>>((String role) {
-                        return DropdownMenuItem<String>(
-                          value: role,
-                          child: Text(role),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
                 Gap(30),
+                // coment untuk delete akses admin
+                // Column(
+                //   children: [
+                //     DropdownButton<String>(
+                //       value: _selectedRole,
+                //       icon: Icon(Icons.keyboard_arrow_down),
+                //       iconSize: 24,
+                //       elevation: 5,
+                //       dropdownColor: Colors.white.withOpacity(0.9),
+                //       style: TextStyle(
+                //         color: primary,
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //       onChanged: (String? newValue) {
+                //         setState(() {
+                //           _selectedRole = newValue!;
+                //         });
+                //       },
+                //       items:
+                //           _roles.map<DropdownMenuItem<String>>((String role) {
+                //         return DropdownMenuItem<String>(
+                //           value: role,
+                //           child: Text(role),
+                //         );
+                //       }).toList(),
+                //     ),
+                //   ],
+                // ),
+                // Gap(30),
                 buton(onPressed: registerUser, text: 'Register'),
                 Gap(30),
                 text2(

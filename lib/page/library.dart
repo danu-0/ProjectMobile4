@@ -84,7 +84,7 @@ class _LibraryState extends State<Library> {
                       '${userController.userData['username']}',
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: semiBold,
                         color: primary,
                       ),
                     ),
@@ -92,9 +92,9 @@ class _LibraryState extends State<Library> {
                     Text(
                       '${userController.userData['email']}',
                       style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                          fontSize: 14,
+                          color: secondarytext,
+                          fontStyle: FontStyle.italic),
                     ),
                   ],
                 ),

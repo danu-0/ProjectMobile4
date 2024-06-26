@@ -105,7 +105,7 @@ class Dashboard extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => ListProduct()));
                         },
-                        text: 'List \nProduct',
+                        text: 'Semua \nProduk',
                         backgroundColor: primary,
                         icon: Icons.shop_2_outlined,
                         iconColor: selected),
@@ -117,7 +117,7 @@ class Dashboard extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => UploadProductPage()));
                         },
-                        text: 'Upload Product',
+                        text: 'Tambah Menu',
                         backgroundColor: primary2,
                         icon: Icons.shop_2_outlined,
                         iconColor: icon),
@@ -135,7 +135,7 @@ class Dashboard extends StatelessWidget {
                                   builder: (context) =>
                                       TransactionStatisticsPage()));
                         },
-                        text: 'Management Product',
+                        text: 'Menejemen Produk',
                         backgroundColor: primary2,
                         icon: Icons.manage_search,
                         iconColor: icon),
@@ -148,7 +148,7 @@ class Dashboard extends StatelessWidget {
                                   builder: (context) =>
                                       TransactionStatusPage()));
                         },
-                        text: 'All Transaction',
+                        text: 'Transaksi',
                         backgroundColor: primary3,
                         icon: Icons.list_alt_rounded,
                         iconColor: selected),
@@ -175,7 +175,7 @@ class Dashboard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'About Us',
+                              'Tentang Kami',
                               style: TextStyle(
                                   fontSize: 21, color: white, fontWeight: bold),
                             ),

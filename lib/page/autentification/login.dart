@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -38,9 +37,9 @@ class Login extends StatelessWidget {
         String role = responseData['role'];
 
         if (role == 'ADMIN') {
-          Get.off(Dashboard());
+          Get.off(() => Dashboard());
         } else {
-          Get.off(Home());
+          Get.off(() => Home());
         }
 
         Get.snackbar(

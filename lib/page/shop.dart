@@ -187,8 +187,6 @@ class _ShopPageState extends State<ShopPage> {
       'totalHarga': totalHarga.toInt(),
       'status': '${status}',
     };
-    // print('Data yang dipilih: ${jsonEncode(paymentData)}');
-
     try {
       final response = await http.post(
         Uri.parse('https://nest-js-nine.vercel.app/midtrans/payment/'),
@@ -207,7 +205,8 @@ class _ShopPageState extends State<ShopPage> {
 
         // Hapus pesanan setelah pembayaran berhasil
         for (var pesanan in selectedItems) {
-          deletePesanan(pesanan['id']);
+          await deletePesanan(pesanan['id']);
+          await updateStokProduk(pesanan['produkId'], pesanan['qtt']);
         }
       } else {
         print(
@@ -311,6 +310,28 @@ class _ShopPageState extends State<ShopPage> {
     } catch (error) {
       print('Error saat mengirim data transaksi: $error');
       // Handle error koneksi atau kesalahan lainnya
+    }
+  }
+
+  Future<void> updateStokProduk(int produkId, int quantity) async {
+    final url = Uri.parse(
+        'https://nest-js-nine.vercel.app/product/update-stock/$produkId');
+    try {
+      final response = await http.patch(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'stok': quantity}),
+      );
+      if (response.statusCode == 200) {
+        print('Stok produk berhasil diperbarui');
+      } else {
+        print(
+            'Gagal memperbarui stok produk. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error updating product stock: $error');
     }
   }
 

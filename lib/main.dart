@@ -10,6 +10,7 @@ import 'package:Medaran/page/shop.dart';
 import 'package:Medaran/page/splash.dart';
 import 'package:Medaran/firebase/utils.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme(
+        Theme.of(context).textTheme,
+      )),
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashPage(),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:Medaran/theme/theme.dart';
@@ -130,10 +131,30 @@ class _TransactionStatisticsPageState extends State<TransactionStatisticsPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Gap(30),
-                Text(
-                  'Distribusi Pembelian per Hari',
-                  style: TextStyle(
-                      color: primary, fontSize: 24, fontWeight: semiBold),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  height: 53,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: secondary, width: 1),
+                      color: white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(Icons.arrow_back_ios)),
+                      Gap(80),
+                      Text(
+                        'Grafik Pembelian',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: semiBold, color: primary),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
                 Center(
@@ -144,22 +165,13 @@ class _TransactionStatisticsPageState extends State<TransactionStatisticsPage> {
                         barChartData: barChartData, dailyTotal: dailyTotal),
                   ),
                 ),
-                Gap(5),
+                Gap(10),
                 Text(
                   'BarChart',
                   style:
                       TextStyle(color: primary, fontWeight: bold, fontSize: 16),
                 ),
                 Gap(20),
-                Text(
-                  'Distribusi Pembelian per Hari',
-                  style: TextStyle(
-                    color: primary,
-                    fontSize: 24,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                SizedBox(height: 20),
                 Center(
                   child: SizedBox(
                     width: 200,
@@ -173,7 +185,7 @@ class _TransactionStatisticsPageState extends State<TransactionStatisticsPage> {
                   spacing: 10,
                   children: buildLegend(),
                 ),
-                Gap(5),
+                Gap(10),
                 Text(
                   'PieChart',
                   style:

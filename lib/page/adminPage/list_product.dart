@@ -82,22 +82,42 @@ class _ListProductState extends State<ListProduct> {
           children: [
             Column(
               children: [
-                Text(
-                  'Semua Produk',
-                  style:
-                      TextStyle(fontSize: 24, fontWeight: bold, color: primary),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  height: 53,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: secondary, width: 1),
+                      color: white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(Icons.arrow_back_ios)),
+                      Gap(80),
+                      Text(
+                        'Semua Produk',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: semiBold, color: primary),
+                      )
+                    ],
+                  ),
                 ),
                 Gap(20),
                 Row(
                   children: [
                     Gap(10),
-                    ListMenu(text: 'Id'),
+                    ListMenu2(text: 'Id'),
                     Gap(20),
-                    ListMenu(text: 'Nama'),
+                    ListMenu2(text: 'Nama'),
                     Gap(66),
-                    ListMenu(text: 'Harga'),
+                    ListMenu2(text: 'Harga'),
                     Gap(20),
-                    ListMenu(text: 'Stock')
+                    ListMenu2(text: 'Stock')
                   ],
                 ),
                 Gap(5),
@@ -136,6 +156,7 @@ class _ListProductState extends State<ListProduct> {
                     },
                   ),
                 ),
+                Gap(60)
               ],
             ),
             Positioned(

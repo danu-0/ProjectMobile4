@@ -103,25 +103,34 @@ class PieChartWidget extends StatelessWidget {
       Colors.purple,
     ];
 
+    List<String> days = [
+      'Senin',
+      'Selasa',
+      'Rabu',
+      'Kamis',
+      'Jumat',
+      'Sabtu',
+      'Minggu',
+    ];
     List<PieChartSectionData> pieChartData = [];
 
-    int i = 0;
-    dailyTotal.forEach((day, total) {
-      pieChartData.add(
-        PieChartSectionData(
-          color: colors[i % colors.length],
-          value: total.toDouble(),
-          title: '${total}',
-          radius: 50,
-          titleStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: bold,
-            color: white,
+    for (int i = 0; i < days.length; i++) {
+      if (dailyTotal.containsKey(days[i])) {
+        pieChartData.add(
+          PieChartSectionData(
+            color: colors[i],
+            value: dailyTotal[days[i]]!.toDouble(),
+            title: '${dailyTotal[days[i]]}',
+            radius: 50,
+            titleStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-        ),
-      );
-      i++;
-    });
+        );
+      }
+    }
 
     return pieChartData;
   }

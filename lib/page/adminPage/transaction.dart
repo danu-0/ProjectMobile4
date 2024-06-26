@@ -3,6 +3,7 @@ import 'package:Medaran/theme/theme.dart';
 import 'package:Medaran/widget/cardMakanan.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class TransactionStatusPage extends StatefulWidget {
@@ -39,15 +40,30 @@ class _TransactionStatusPageState extends State<TransactionStatusPage> {
                 image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Semua Transaksi',
-                  style: TextStyle(
-                      color: primary, fontSize: 20, fontWeight: semiBold),
-                )
-              ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              height: 53,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: secondary, width: 1),
+                  color: white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(Icons.arrow_back_ios)),
+                  Gap(70),
+                  Text(
+                    'Semua Transaksi',
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: semiBold, color: primary),
+                  )
+                ],
+              ),
             ),
             Gap(10),
             Expanded(
